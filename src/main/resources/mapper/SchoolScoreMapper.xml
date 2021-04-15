@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bingbing.paper.mybatis.mapper.SchoolScoreMapper">
+  <resultMap id="BaseResultMap" type="com.bingbing.paper.mybatis.entity.SchoolScore">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="school_id" jdbcType="VARCHAR" property="schoolId" />
+    <result column="school_score" jdbcType="VARCHAR" property="schoolScore" />
+    <result column="school_apply" jdbcType="INTEGER" property="schoolApply" />
+    <result column="school_admit" jdbcType="INTEGER" property="schoolAdmit" />
+    <result column="school_file" jdbcType="VARCHAR" property="schoolFile" />
+    <result column="begin_repeat" jdbcType="BIT" property="beginRepeat" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="school_apply_admit" jdbcType="VARCHAR" property="schoolApplyAdmit" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, school_id, school_score, school_apply, school_admit, school_file, begin_repeat,
+    gmt_create, enabled,school_apply_admit
+  </sql>
+  <select id="selectByExample" parameterType="com.bingbing.paper.mybatis.entity.SchoolScoreExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from b_school_score
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from b_school_score
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from b_school_score
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bingbing.paper.mybatis.entity.SchoolScoreExample">
+    delete from b_school_score
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bingbing.paper.mybatis.entity.SchoolScore">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into b_school_score (school_id, school_score, school_apply,
+      school_admit, school_file, begin_repeat,
+      gmt_create, enabled,school_apply_admit)
+    values (#{schoolId,jdbcType=VARCHAR}, #{schoolScore,jdbcType=VARCHAR}, #{schoolApply,jdbcType=INTEGER},
+      #{schoolAdmit,jdbcType=INTEGER}, #{schoolFile,jdbcType=VARCHAR}, #{beginRepeat,jdbcType=BIT},
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{enabled,jdbcType=BIT}, #{schoolApplyAdmit,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bingbing.paper.mybatis.entity.SchoolScore">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into b_school_score
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="schoolId != null">
+        school_id,
+      </if>
+      <if test="schoolScore != null">
+        school_score,
+      </if>
+      <if test="schoolApply != null">
+        school_apply,
+      </if>
+      <if test="schoolAdmit != null">
+        school_admit,
+      </if>
+      <if test="schoolFile != null">
+        school_file,
+      </if>
+      <if test="beginRepeat != null">
+        begin_repeat,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="schoolApplyAdmit != null">
+        school_apply_admit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="schoolId != null">
+        #{schoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolScore != null">
+        #{schoolScore,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolApply != null">
+        #{schoolApply,jdbcType=INTEGER},
+      </if>
+      <if test="schoolAdmit != null">
+        #{schoolAdmit,jdbcType=INTEGER},
+      </if>
+      <if test="schoolFile != null">
+        #{schoolFile,jdbcType=VARCHAR},
+      </if>
+      <if test="beginRepeat != null">
+        #{beginRepeat,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="schoolApplyAdmit != null">
+        #{schoolApplyAdmit,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bingbing.paper.mybatis.entity.SchoolScoreExample" resultType="java.lang.Integer">
+    select count(*) from b_school_score
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update b_school_score
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolId != null">
+        school_id = #{record.schoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolScore != null">
+        school_score = #{record.schoolScore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolApply != null">
+        school_apply = #{record.schoolApply,jdbcType=INTEGER},
+      </if>
+      <if test="record.schoolAdmit != null">
+        school_admit = #{record.schoolAdmit,jdbcType=INTEGER},
+      </if>
+      <if test="record.schoolFile != null">
+        school_file = #{record.schoolFile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginRepeat != null">
+        begin_repeat = #{record.beginRepeat,jdbcType=BIT},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.enabled != null">
+        enabled = #{record.enabled,jdbcType=BIT},
+      </if>
+      <if test="record.schoolApplyAdmit != null">
+        school_apply_admit = #{record.schoolApplyAdmit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update b_school_score
+    set id = #{record.id,jdbcType=VARCHAR},
+      school_id = #{record.schoolId,jdbcType=VARCHAR},
+      school_score = #{record.schoolScore,jdbcType=VARCHAR},
+      school_apply = #{record.schoolApply,jdbcType=INTEGER},
+      school_admit = #{record.schoolAdmit,jdbcType=INTEGER},
+      school_file = #{record.schoolFile,jdbcType=VARCHAR},
+      begin_repeat = #{record.beginRepeat,jdbcType=BIT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      enabled = #{record.enabled,jdbcType=BIT},
+      school_apply_admit = #{record.schoolApplyAdmit,jdbcType=VARCHAR},
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bingbing.paper.mybatis.entity.SchoolScore">
+    update b_school_score
+    <set>
+      <if test="schoolId != null">
+        school_id = #{schoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolScore != null">
+        school_score = #{schoolScore,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolApply != null">
+        school_apply = #{schoolApply,jdbcType=INTEGER},
+      </if>
+      <if test="schoolAdmit != null">
+        school_admit = #{schoolAdmit,jdbcType=INTEGER},
+      </if>
+      <if test="schoolFile != null">
+        school_file = #{schoolFile,jdbcType=VARCHAR},
+      </if>
+      <if test="beginRepeat != null">
+        begin_repeat = #{beginRepeat,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="schoolApplyAdmit != null">
+        school_apply_admit = #{schoolApplyAdmit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bingbing.paper.mybatis.entity.SchoolScore">
+    update b_school_score
+    set school_id = #{schoolId,jdbcType=VARCHAR},
+      school_score = #{schoolScore,jdbcType=VARCHAR},
+      school_apply = #{schoolApply,jdbcType=INTEGER},
+      school_admit = #{schoolAdmit,jdbcType=INTEGER},
+      school_file = #{schoolFile,jdbcType=VARCHAR},
+      begin_repeat = #{beginRepeat,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      enabled = #{enabled,jdbcType=BIT},
+      school_apply_admit = #{schoolApplyAdmit,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
