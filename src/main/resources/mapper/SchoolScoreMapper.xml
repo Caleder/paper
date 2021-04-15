@@ -109,10 +109,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into b_school_score (school_id, school_score, school_apply,
+    insert into b_school_score (id, school_id, school_score, school_apply,
       school_admit, school_file, begin_repeat,
       gmt_create, enabled,school_apply_admit)
-    values (#{schoolId,jdbcType=VARCHAR}, #{schoolScore,jdbcType=VARCHAR}, #{schoolApply,jdbcType=INTEGER},
+    values (#{id,jdbcType=VARCHAR}, #{schoolId,jdbcType=VARCHAR}, #{schoolScore,jdbcType=VARCHAR}, #{schoolApply,jdbcType=INTEGER},
       #{schoolAdmit,jdbcType=INTEGER}, #{schoolFile,jdbcType=VARCHAR}, #{beginRepeat,jdbcType=BIT},
       #{gmtCreate,jdbcType=TIMESTAMP}, #{enabled,jdbcType=BIT}, #{schoolApplyAdmit,jdbcType=VARCHAR})
   </insert>
@@ -122,6 +122,9 @@
     </selectKey>
     insert into b_school_score
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="schoolId != null">
         school_id,
       </if>
@@ -151,6 +154,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
       <if test="schoolId != null">
         #{schoolId,jdbcType=VARCHAR},
       </if>

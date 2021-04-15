@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, school_name, school_content, school_rank, school_tel, school_web_url, gmt_create, 
+    id, school_name, school_content, school_rank, school_tel, school_web_url, gmt_create,
     enabled
   </sql>
   <select id="selectByExample" parameterType="com.bingbing.paper.mybatis.entity.SchoolRankExample" resultMap="BaseResultMap">
@@ -88,7 +88,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from b_school_rank
     where id = #{id,jdbcType=VARCHAR}
@@ -107,11 +107,11 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into b_school_rank (school_name, school_content, school_rank, 
-      school_tel, school_web_url, gmt_create, 
+    insert into b_school_rank (id, school_name, school_content, school_rank,
+      school_tel, school_web_url, gmt_create,
       enabled)
-    values (#{schoolName,jdbcType=VARCHAR}, #{schoolContent,jdbcType=VARCHAR}, #{schoolRank,jdbcType=INTEGER}, 
-      #{schoolTel,jdbcType=VARCHAR}, #{schoolWebUrl,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=VARCHAR}, #{schoolName,jdbcType=VARCHAR}, #{schoolContent,jdbcType=VARCHAR}, #{schoolRank,jdbcType=INTEGER},
+      #{schoolTel,jdbcType=VARCHAR}, #{schoolWebUrl,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP},
       #{enabled,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.bingbing.paper.mybatis.entity.SchoolRank">
@@ -120,6 +120,9 @@
     </selectKey>
     insert into b_school_rank
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="schoolName != null">
         school_name,
       </if>
@@ -143,6 +146,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
       <if test="schoolName != null">
         #{schoolName,jdbcType=VARCHAR},
       </if>

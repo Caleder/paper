@@ -103,9 +103,9 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into b_collect (school_id, user_id, enabled,
+    insert into b_collect (id, school_id, user_id, enabled,
       gmt_create)
-    values (#{schoolId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{enabled,jdbcType=BIT},
+    values (#{id,jdbcType=VARCHAR}, #{schoolId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{enabled,jdbcType=BIT},
       #{gmtCreate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.bingbing.paper.mybatis.entity.Collect">
@@ -114,6 +114,9 @@
     </selectKey>
     insert into b_collect
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="schoolId != null">
         school_id,
       </if>
@@ -128,6 +131,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
       <if test="schoolId != null">
         #{schoolId,jdbcType=VARCHAR},
       </if>
