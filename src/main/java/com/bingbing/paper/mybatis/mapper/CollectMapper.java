@@ -4,7 +4,9 @@ import com.bingbing.paper.mybatis.entity.Collect;
 import com.bingbing.paper.mybatis.entity.CollectExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CollectMapper {
     int countByExample(CollectExample example);
 

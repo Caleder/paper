@@ -1,11 +1,8 @@
 package com.bingbing.paper.mybatis.entity;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
 
-@Data
 public class User implements Serializable {
     private String id;
 
@@ -18,6 +15,54 @@ public class User implements Serializable {
     private Date gmtCreate;
 
     private Boolean enabled;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 
     private static final long serialVersionUID = 1L;
 

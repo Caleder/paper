@@ -1,12 +1,54 @@
 package com.bingbing.paper.form;
 
-import lombok.Data;
-
-@Data
 public class CollectForm {
 
-    private String username;
+    private String schoolWebUrl;
 
     private String schoolName;
 
+    private String schoolTel;
+
+    private int current;
+
+    private int size;
+
+    public String getSchoolWebUrl() {
+        return schoolWebUrl;
+    }
+
+    public void setSchoolWebUrl(String schoolWebUrl) {
+        this.schoolWebUrl = schoolWebUrl;
+    }
+
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
+    }
+
+    public String getSchoolTel() {
+        return schoolTel;
+    }
+
+    public void setSchoolTel(String schoolTel) {
+        this.schoolTel = schoolTel;
+    }
+
+    public int getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(int current) {
+        this.current = current;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 }

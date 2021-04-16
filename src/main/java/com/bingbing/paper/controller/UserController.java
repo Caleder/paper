@@ -102,6 +102,8 @@ public class UserController {
                 passwordEncoder.encode(userLoginParam.getPassword()), 1, TimeUnit.HOURS);
         redisTemplate.opsForValue().set("USER_TOKEN::" + userLoginParam.getUsername(),
                 tokenHead + " " + token, 1, TimeUnit.HOURS);
+        redisTemplate.opsForValue().set("USERALL",
+                userService.getUserByUsername(userLoginParam.getUsername()), 1, TimeUnit.HOURS);
         return CommonResult.success(tokenMap);
     }
 

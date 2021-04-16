@@ -12,7 +12,9 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class SchoolRankServiceImpl implements SchoolRankService {
@@ -92,7 +94,7 @@ public class SchoolRankServiceImpl implements SchoolRankService {
 
     @Override
     public void updateSchoolRank(SchoolRank schoolRank) {
-        if(schoolRank == null){
+        if (schoolRank == null) {
             return;
         }
         schoolRankMapper.updateByPrimaryKeySelective(schoolRank);
@@ -100,10 +102,35 @@ public class SchoolRankServiceImpl implements SchoolRankService {
 
     @Override
     public SchoolRank getSchoolRank(String id) {
-        if(StrUtil.isBlank(id)){
+        if (StrUtil.isBlank(id)) {
             return null;
         }
         SchoolRank schoolRank = schoolRankMapper.selectByPrimaryKey(id);
         return schoolRank;
+    }
+
+    @Override
+    public Boolean addSchoolRank(SchoolRank schoolRank) {
+        if (schoolRank == null) {
+            return false;
+        }
+        if (StrUtil.isBlank(schoolRank.getSchoolName())
+                || StrUtil.isBlank(schoolRank.getSchoolTel())
+                || StrUtil.isBlank(schoolRank.getSchoolWebUrl())
+                || schoolRank.getSchoolRank() == null) {
+            return false;
+        }
+        SchoolRankExample example = new SchoolRankExample();
+        example.createCriteria().andEnabledEqualTo(true)
+                .andSchoolNameEqualTo(schoolRank.getSchoolName());
+        List<SchoolRank> schoolRankList = schoolRankMapper.selectByExample(example);
+        if(CollectionUtil.isNotEmpty(schoolRankList)){
+            return false;
+        }
+        schoolRank.setEnabled(true);
+        schoolRank.setGmtCreate(new Date());
+        schoolRank.setId(UUID.randomUUID().toString());
+        schoolRankMapper.insert(schoolRank);
+        return true;
     }
 }

@@ -10,6 +10,12 @@ public interface CollectService {
 
     int getCollectCount(CollectForm collectForm);
 
+    void updateCollect(String id);
 
+    void addCollect(String schoolId);
+
+    Collect getCollect(String id);
+
+    Collect getCollectBySchoolId(String schoolId);
 
 }

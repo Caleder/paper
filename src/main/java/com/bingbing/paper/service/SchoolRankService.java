@@ -37,4 +37,6 @@ public interface SchoolRankService {
      * @param id
      */
     public SchoolRank getSchoolRank(String id);
+
+    Boolean addSchoolRank(SchoolRank schoolRank);
 }
