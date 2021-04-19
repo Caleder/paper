@@ -56,6 +56,16 @@ public class SchoolScore implements Serializable {
 
     private String schoolName;
 
+    private String schoolYear;
+
+    public String getSchoolYear() {
+        return schoolYear;
+    }
+
+    public void setSchoolYear(String schoolYear) {
+        this.schoolYear = schoolYear;
+    }
+
     public String getId() {
         return id;
     }

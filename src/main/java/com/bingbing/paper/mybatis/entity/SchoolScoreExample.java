@@ -640,6 +640,11 @@ public class SchoolScoreExample {
             return (Criteria) this;
         }
 
+        public Criteria andSchoolYearEqualTo(String value) {
+            addCriterion("school_year =", value, "schoolYear");
+            return (Criteria) this;
+        }
+
         public Criteria andEnabledNotEqualTo(Boolean value) {
             addCriterion("enabled <>", value, "enabled");
             return (Criteria) this;

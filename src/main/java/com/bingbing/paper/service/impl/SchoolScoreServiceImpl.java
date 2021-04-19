@@ -15,7 +15,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,11 +28,13 @@ public class SchoolScoreServiceImpl implements SchoolScoreService {
 
     @Override
     public Page<SchoolScore> getSchoolScorePage(Page<SchoolScore> page, SchoolScoreVo schoolScoreVo) {
-        PageHelper.startPage(page.getPageNum(), page.getPageSize());
         SchoolScoreExample example = new SchoolScoreExample();
         if (schoolScoreVo != null) {
             SchoolScoreExample.Criteria criteria = example.createCriteria();
-            criteria.andEnabledEqualTo(true);
+            //通过学年查询
+            if (StrUtil.isNotBlank(schoolScoreVo.getSchoolYear())) {
+                criteria.andSchoolYearEqualTo(schoolScoreVo.getSchoolYear());
+            }
             //通过复试线查询
             if (StrUtil.isNotBlank(schoolScoreVo.getSchoolScore())) {
                 criteria.andBeginRepeatEqualTo(false)
@@ -42,7 +44,7 @@ public class SchoolScoreServiceImpl implements SchoolScoreService {
             if (StrUtil.isNotBlank(schoolScoreVo.getSchoolName())) {
                 SchoolRankExample rankExample = new SchoolRankExample();
                 rankExample.createCriteria()
-                        .andEnabledEqualTo(true)
+                        /*.andEnabledEqualTo(true)*/
                         .andSchoolNameLike(schoolScoreVo.getSchoolName());
                 List<SchoolRank> schoolRanks = schoolRankMapper.selectByExample(rankExample);
                 if (CollectionUtil.isEmpty(schoolRanks)) {
@@ -69,6 +71,7 @@ public class SchoolScoreServiceImpl implements SchoolScoreService {
                 criteria.andSchoolFileLike(schoolScoreVo.getSchoolFile());
             }
         }
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<SchoolScore> schoolScores = schoolScoreMapper.selectByExample(example);
         if (CollectionUtil.isNotEmpty(schoolScores)) {
             for (SchoolScore schoolScore : schoolScores) {
@@ -86,7 +89,10 @@ public class SchoolScoreServiceImpl implements SchoolScoreService {
         SchoolScoreExample example = new SchoolScoreExample();
         if (schoolScoreVo != null) {
             SchoolScoreExample.Criteria criteria = example.createCriteria();
-            criteria.andEnabledEqualTo(true);
+            //通过学年查询
+            if (StrUtil.isNotBlank(schoolScoreVo.getSchoolYear())) {
+                criteria.andSchoolYearEqualTo(schoolScoreVo.getSchoolYear());
+            }
             //通过复试线查询
             if (StrUtil.isNotBlank(schoolScoreVo.getSchoolScore())) {
                 criteria.andBeginRepeatEqualTo(false)
@@ -132,5 +138,51 @@ public class SchoolScoreServiceImpl implements SchoolScoreService {
             return;
         }
         schoolScoreMapper.updateByPrimaryKeySelective(schoolScore);
+    }
+
+    @Override
+    public Boolean addSchoolScore(SchoolScore schoolScore) {
+        if(schoolScore == null){
+            return false;
+        }
+        if(StrUtil.isBlank(schoolScore.getSchoolYear())){
+            return false;
+        }
+        SchoolScoreExample example = new SchoolScoreExample();
+        SchoolScoreExample.Criteria criteria = example.createCriteria();
+        criteria.andEnabledEqualTo(true).andSchoolYearEqualTo(schoolScore.getSchoolYear())
+                .andSchoolIdEqualTo(schoolScore.getSchoolId());
+        List<SchoolScore> schoolScores = schoolScoreMapper.selectByExample(example);
+        if(CollectionUtil.isNotEmpty(schoolScores)){
+            return false;
+        }
+        schoolScore.setGmtCreate(new Date());
+        schoolScore.setEnabled(true);
+        schoolScore.setId(UUID.randomUUID().toString());
+        schoolScoreMapper.insert(schoolScore);
+        return true;
+    }
+
+    @Override
+    public List<SchoolScore> getSchoolYearList(Set<String> idList) {
+        SchoolScoreExample example = new SchoolScoreExample();
+        SchoolScoreExample.Criteria criteria = example.createCriteria();
+        /*criteria.andEnabledEqualTo(true);*/
+        if(CollectionUtil.isNotEmpty(idList)){
+            criteria.andSchoolIdIn(new ArrayList<String>(idList));
+        }
+        List<SchoolScore> schoolScores = schoolScoreMapper.selectByExample(example);
+        if(CollectionUtil.isNotEmpty(schoolScores)){
+            return schoolScores;
+        }
+        return null;
+    }
+
+    @Override
+    public SchoolScore getSchoolScore(String id) {
+        SchoolScore schoolScore = schoolScoreMapper.selectByPrimaryKey(id);
+        SchoolRank schoolRank = schoolRankMapper.selectByPrimaryKey(schoolScore.getSchoolId());
+        schoolScore.setSchoolName(schoolRank.getSchoolName());
+        return schoolScore;
     }
 }

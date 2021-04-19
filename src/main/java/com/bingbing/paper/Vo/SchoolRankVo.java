@@ -6,6 +6,9 @@ import lombok.Data;
 @Data
 public class SchoolRankVo {
 
+    @ApiModelProperty("院校所在地")
+    private String cityName;
+
     @ApiModelProperty("院校名称")
     private String schoolName;
 

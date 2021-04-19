@@ -12,9 +12,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class SchoolRankServiceImpl implements SchoolRankService {
@@ -28,7 +26,11 @@ public class SchoolRankServiceImpl implements SchoolRankService {
         SchoolRankExample example = new SchoolRankExample();
         if (schoolRankVo != null) {
             SchoolRankExample.Criteria criteria = example.createCriteria();
-            criteria.andEnabledEqualTo(true);
+            /*criteria.andEnabledEqualTo(true);*/
+            //通过院校所在地查询
+            if (StrUtil.isNotBlank(schoolRankVo.getCityName())) {
+                criteria.andCityNameLike(schoolRankVo.getCityName());
+            }
             //通过院校名称查询
             if (StrUtil.isNotBlank(schoolRankVo.getSchoolName())) {
                 criteria.andSchoolNameLike(schoolRankVo.getSchoolName());
@@ -59,7 +61,11 @@ public class SchoolRankServiceImpl implements SchoolRankService {
         SchoolRankExample example = new SchoolRankExample();
         if (schoolRankVo != null) {
             SchoolRankExample.Criteria criteria = example.createCriteria();
-            criteria.andEnabledEqualTo(true);
+            /*criteria.andEnabledEqualTo(true);*/
+            //通过院校所在地查询
+            if (StrUtil.isNotBlank(schoolRankVo.getCityName())) {
+                criteria.andCityNameLike(schoolRankVo.getCityName());
+            }
             //通过院校名称查询
             if (StrUtil.isNotBlank(schoolRankVo.getSchoolName())) {
                 criteria.andSchoolNameLike(schoolRankVo.getSchoolName());
@@ -117,11 +123,15 @@ public class SchoolRankServiceImpl implements SchoolRankService {
         if (StrUtil.isBlank(schoolRank.getSchoolName())
                 || StrUtil.isBlank(schoolRank.getSchoolTel())
                 || StrUtil.isBlank(schoolRank.getSchoolWebUrl())
-                || schoolRank.getSchoolRank() == null) {
+                || schoolRank.getSchoolRank() == null
+                || StrUtil.isBlank(schoolRank.getCityName())
+                || StrUtil.isBlank(schoolRank.getAffiliation())
+                || StrUtil.isBlank(schoolRank.getGrade())) {
             return false;
         }
         SchoolRankExample example = new SchoolRankExample();
         example.createCriteria().andEnabledEqualTo(true)
+                .andCityNameLike(schoolRank.getCityName())
                 .andSchoolNameEqualTo(schoolRank.getSchoolName());
         List<SchoolRank> schoolRankList = schoolRankMapper.selectByExample(example);
         if(CollectionUtil.isNotEmpty(schoolRankList)){
@@ -132,5 +142,17 @@ public class SchoolRankServiceImpl implements SchoolRankService {
         schoolRank.setId(UUID.randomUUID().toString());
         schoolRankMapper.insert(schoolRank);
         return true;
+    }
+
+    @Override
+    public List<SchoolRank> getSchoolRankList(Set<String> idList) {
+        SchoolRankExample example = new SchoolRankExample();
+        SchoolRankExample.Criteria criteria = example.createCriteria();
+        criteria.andEnabledEqualTo(true);
+        if(CollectionUtil.isNotEmpty(idList)){
+            criteria.andIdIn(new ArrayList<String>(idList));
+        }
+        List<SchoolRank> schoolRankList = schoolRankMapper.selectByExample(example);
+        return schoolRankList;
     }
 }

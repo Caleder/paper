@@ -190,6 +190,11 @@ public class UserExample {
             return (Criteria) this;
         }
 
+        public Criteria andRoleEqualTo(String value) {
+            addCriterion("role =", value, "role");
+            return (Criteria) this;
+        }
+
         public Criteria andUsernameNotEqualTo(String value) {
             addCriterion("username <>", value, "username");
             return (Criteria) this;
@@ -217,6 +222,16 @@ public class UserExample {
 
         public Criteria andUsernameLike(String value) {
             addCriterion("username like", "%"+value+"%", "username");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameLike(String value) {
+            addCriterion("name like", "%"+value+"%", "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andMottoLike(String value) {
+            addCriterion("motto like", "%"+value+"%", "motto");
             return (Criteria) this;
         }
 

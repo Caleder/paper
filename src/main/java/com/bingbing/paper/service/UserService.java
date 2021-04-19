@@ -29,7 +29,7 @@ public interface UserService {
      * @param enabled
      * @return
      */
-    public Page<User> getUserList(Page<User> userPage, String username, Boolean enabled,String mobile);
+    public Page<User> getUserList(Page<User> userPage,String name, String username, Boolean enabled,String mobile,String motto);
 
     /**
      * 查询所有用户信息个数
@@ -37,6 +37,12 @@ public interface UserService {
      * @param enabled
      * @return
      */
-    public Integer getUserListCount(String username, Boolean enabled,String mobile);
+    public Integer getUserListCount(String name, String username, Boolean enabled,String mobile,String motto);
+
+    /**
+     * 修改用户信息
+     * @param user
+     */
+    public void updateUser(User user);
 
 }

@@ -64,6 +64,9 @@ public class UserServiceImpl implements UserService {
         user.setId(UUID.randomUUID().toString());
         user.setGmtCreate(new Date());
         user.setEnabled(true);
+        user.setMotto(userParam.getMotto());
+        user.setName(userParam.getName());
+        user.setRole(userParam.getRole());
         //查询是否有相同用户名的用户
         UserExample example = new UserExample();
         example.createCriteria()
@@ -99,10 +102,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> getUserList(Page<User> userPage,String username, Boolean enabled,String mobile) {
+    public Page<User> getUserList(Page<User> userPage,String name, String username, Boolean enabled,String mobile,String motto) {
         PageHelper.startPage(userPage.getPageNum(),userPage.getPageSize());
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
+        if(StrUtil.isNotBlank(name)){
+            criteria.andNameLike(name);
+        }
         if(StrUtil.isNotBlank(username)){
             criteria.andUsernameLike(username);
         }
@@ -112,6 +118,10 @@ public class UserServiceImpl implements UserService {
         if(enabled != null){
             criteria.andEnabledEqualTo(enabled);
         }
+        if(StrUtil.isNotBlank(motto)){
+            criteria.andMottoLike(motto);
+        }
+        example.setOrderByClause("gmt_create DESC");
         List<User> users = userMapper.selectByExample(example);
         if(CollectionUtil.isNotEmpty(users)){
             return (Page<User>)users;
@@ -120,9 +130,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer getUserListCount(String username, Boolean enabled,String mobile) {
+    public Integer getUserListCount(String name, String username, Boolean enabled,String mobile,String motto) {
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
+        if(StrUtil.isNotBlank(name)){
+            criteria.andNameLike(name);
+        }
         if(StrUtil.isNotBlank(username)){
             criteria.andUsernameLike(username);
         }
@@ -132,8 +145,19 @@ public class UserServiceImpl implements UserService {
         if(enabled != null){
             criteria.andEnabledEqualTo(enabled);
         }
+        if(StrUtil.isNotBlank(motto)){
+            criteria.andMottoLike(motto);
+        }
         int users = userMapper.countByExample(example);
         return users;
+    }
+
+    @Override
+    public void updateUser(User user) {
+        if(user == null){
+            return;
+        }
+        userMapper.updateByPrimaryKeySelective(user);
     }
 
 }

@@ -21,4 +21,7 @@ public class SchoolScoreVo {
     @ApiModelProperty("院校资料")
     private String schoolFile;
 
+    @ApiModelProperty("院校学年")
+    private String schoolYear;
+
 }

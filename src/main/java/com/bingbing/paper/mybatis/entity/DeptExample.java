@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class SchoolRankExample {
+public class DeptExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public SchoolRankExample() {
+    public DeptExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -146,27 +146,12 @@ public class SchoolRankExample {
         }
 
         public Criteria andIdLike(String value) {
-            addCriterion("id like", "%"+value+"%", "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andCityNameLike(String value) {
-            addCriterion("city_name like", "%"+value+"%", "cityName");
-            return (Criteria) this;
-        }
-
-        public Criteria andAffiliationLike(String value) {
-            addCriterion("affiliation like", "%"+value+"%", "affiliation");
-            return (Criteria) this;
-        }
-
-        public Criteria andGradeLike(String value) {
-            addCriterion("grade like", "%"+value+"%", "grade");
+            addCriterion("id like", value, "id");
             return (Criteria) this;
         }
 
         public Criteria andIdNotLike(String value) {
-            addCriterion("id not like", "%"+value+"%", "id");
+            addCriterion("id not like", value, "id");
             return (Criteria) this;
         }
 
@@ -187,6 +172,146 @@ public class SchoolRankExample {
 
         public Criteria andIdNotBetween(String value1, String value2) {
             addCriterion("id not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameIsNull() {
+            addCriterion("dept_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameIsNotNull() {
+            addCriterion("dept_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameEqualTo(String value) {
+            addCriterion("dept_name =", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameNotEqualTo(String value) {
+            addCriterion("dept_name <>", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameGreaterThan(String value) {
+            addCriterion("dept_name >", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameGreaterThanOrEqualTo(String value) {
+            addCriterion("dept_name >=", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameLessThan(String value) {
+            addCriterion("dept_name <", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameLessThanOrEqualTo(String value) {
+            addCriterion("dept_name <=", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameLike(String value) {
+            addCriterion("dept_name like", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameNotLike(String value) {
+            addCriterion("dept_name not like", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameIn(List<String> values) {
+            addCriterion("dept_name in", values, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameNotIn(List<String> values) {
+            addCriterion("dept_name not in", values, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameBetween(String value1, String value2) {
+            addCriterion("dept_name between", value1, value2, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameNotBetween(String value1, String value2) {
+            addCriterion("dept_name not between", value1, value2, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchoolIdIsNull() {
+            addCriterion("school_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchoolIdIsNotNull() {
+            addCriterion("school_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchoolIdEqualTo(String value) {
+            addCriterion("school_id =", value, "schoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchoolIdNotEqualTo(String value) {
+            addCriterion("school_id <>", value, "schoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchoolIdGreaterThan(String value) {
+            addCriterion("school_id >", value, "schoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchoolIdGreaterThanOrEqualTo(String value) {
+            addCriterion("school_id >=", value, "schoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchoolIdLessThan(String value) {
+            addCriterion("school_id <", value, "schoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchoolIdLessThanOrEqualTo(String value) {
+            addCriterion("school_id <=", value, "schoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchoolIdLike(String value) {
+            addCriterion("school_id like", value, "schoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchoolIdNotLike(String value) {
+            addCriterion("school_id not like", value, "schoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchoolIdIn(List<String> values) {
+            addCriterion("school_id in", values, "schoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchoolIdNotIn(List<String> values) {
+            addCriterion("school_id not in", values, "schoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchoolIdBetween(String value1, String value2) {
+            addCriterion("school_id between", value1, value2, "schoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchoolIdNotBetween(String value1, String value2) {
+            addCriterion("school_id not between", value1, value2, "schoolId");
             return (Criteria) this;
         }
 
@@ -231,12 +356,12 @@ public class SchoolRankExample {
         }
 
         public Criteria andSchoolNameLike(String value) {
-            addCriterion("school_name like", "%"+value+"%", "schoolName");
+            addCriterion("school_name like", value, "schoolName");
             return (Criteria) this;
         }
 
         public Criteria andSchoolNameNotLike(String value) {
-            addCriterion("school_name not like", "%"+value+"%", "schoolName");
+            addCriterion("school_name not like", value, "schoolName");
             return (Criteria) this;
         }
 
@@ -260,273 +385,213 @@ public class SchoolRankExample {
             return (Criteria) this;
         }
 
-        public Criteria andSchoolContentIsNull() {
-            addCriterion("school_content is null");
+        public Criteria andDeptContentIsNull() {
+            addCriterion("dept_content is null");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolContentIsNotNull() {
-            addCriterion("school_content is not null");
+        public Criteria andDeptContentIsNotNull() {
+            addCriterion("dept_content is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolContentEqualTo(String value) {
-            addCriterion("school_content =", value, "schoolContent");
+        public Criteria andDeptContentEqualTo(String value) {
+            addCriterion("dept_content =", value, "deptContent");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolContentNotEqualTo(String value) {
-            addCriterion("school_content <>", value, "schoolContent");
+        public Criteria andDeptContentNotEqualTo(String value) {
+            addCriterion("dept_content <>", value, "deptContent");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolContentGreaterThan(String value) {
-            addCriterion("school_content >", value, "schoolContent");
+        public Criteria andDeptContentGreaterThan(String value) {
+            addCriterion("dept_content >", value, "deptContent");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolContentGreaterThanOrEqualTo(String value) {
-            addCriterion("school_content >=", value, "schoolContent");
+        public Criteria andDeptContentGreaterThanOrEqualTo(String value) {
+            addCriterion("dept_content >=", value, "deptContent");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolContentLessThan(String value) {
-            addCriterion("school_content <", value, "schoolContent");
+        public Criteria andDeptContentLessThan(String value) {
+            addCriterion("dept_content <", value, "deptContent");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolContentLessThanOrEqualTo(String value) {
-            addCriterion("school_content <=", value, "schoolContent");
+        public Criteria andDeptContentLessThanOrEqualTo(String value) {
+            addCriterion("dept_content <=", value, "deptContent");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolContentLike(String value) {
-            addCriterion("school_content like", "%"+value+"%", "schoolContent");
+        public Criteria andDeptContentLike(String value) {
+            addCriterion("dept_content like", value, "deptContent");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolContentNotLike(String value) {
-            addCriterion("school_content not like", "%"+value+"%", "schoolContent");
+        public Criteria andDeptContentNotLike(String value) {
+            addCriterion("dept_content not like", value, "deptContent");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolContentIn(List<String> values) {
-            addCriterion("school_content in", values, "schoolContent");
+        public Criteria andDeptContentIn(List<String> values) {
+            addCriterion("dept_content in", values, "deptContent");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolContentNotIn(List<String> values) {
-            addCriterion("school_content not in", values, "schoolContent");
+        public Criteria andDeptContentNotIn(List<String> values) {
+            addCriterion("dept_content not in", values, "deptContent");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolContentBetween(String value1, String value2) {
-            addCriterion("school_content between", value1, value2, "schoolContent");
+        public Criteria andDeptContentBetween(String value1, String value2) {
+            addCriterion("dept_content between", value1, value2, "deptContent");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolContentNotBetween(String value1, String value2) {
-            addCriterion("school_content not between", value1, value2, "schoolContent");
+        public Criteria andDeptContentNotBetween(String value1, String value2) {
+            addCriterion("dept_content not between", value1, value2, "deptContent");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolRankIsNull() {
-            addCriterion("school_rank is null");
+        public Criteria andDeptLeaderIdIsNull() {
+            addCriterion("dept_leader_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolRankIsNotNull() {
-            addCriterion("school_rank is not null");
+        public Criteria andDeptLeaderIdIsNotNull() {
+            addCriterion("dept_leader_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolRankEqualTo(Integer value) {
-            addCriterion("school_rank =", value, "schoolRank");
+        public Criteria andDeptLeaderIdEqualTo(String value) {
+            addCriterion("dept_leader_id =", value, "deptLeaderId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolRankNotEqualTo(Integer value) {
-            addCriterion("school_rank <>", value, "schoolRank");
+        public Criteria andDeptLeaderIdNotEqualTo(String value) {
+            addCriterion("dept_leader_id <>", value, "deptLeaderId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolRankGreaterThan(Integer value) {
-            addCriterion("school_rank >", value, "schoolRank");
+        public Criteria andDeptLeaderIdGreaterThan(String value) {
+            addCriterion("dept_leader_id >", value, "deptLeaderId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolRankGreaterThanOrEqualTo(Integer value) {
-            addCriterion("school_rank >=", value, "schoolRank");
+        public Criteria andDeptLeaderIdGreaterThanOrEqualTo(String value) {
+            addCriterion("dept_leader_id >=", value, "deptLeaderId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolRankLessThan(Integer value) {
-            addCriterion("school_rank <", value, "schoolRank");
+        public Criteria andDeptLeaderIdLessThan(String value) {
+            addCriterion("dept_leader_id <", value, "deptLeaderId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolRankLessThanOrEqualTo(Integer value) {
-            addCriterion("school_rank <=", value, "schoolRank");
+        public Criteria andDeptLeaderIdLessThanOrEqualTo(String value) {
+            addCriterion("dept_leader_id <=", value, "deptLeaderId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolRankIn(List<Integer> values) {
-            addCriterion("school_rank in", values, "schoolRank");
+        public Criteria andDeptLeaderIdLike(String value) {
+            addCriterion("dept_leader_id like", value, "deptLeaderId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolRankNotIn(List<Integer> values) {
-            addCriterion("school_rank not in", values, "schoolRank");
+        public Criteria andDeptLeaderIdNotLike(String value) {
+            addCriterion("dept_leader_id not like", value, "deptLeaderId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolRankBetween(Integer value1, Integer value2) {
-            addCriterion("school_rank between", value1, value2, "schoolRank");
+        public Criteria andDeptLeaderIdIn(List<String> values) {
+            addCriterion("dept_leader_id in", values, "deptLeaderId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolRankNotBetween(Integer value1, Integer value2) {
-            addCriterion("school_rank not between", value1, value2, "schoolRank");
+        public Criteria andDeptLeaderIdNotIn(List<String> values) {
+            addCriterion("dept_leader_id not in", values, "deptLeaderId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolTelIsNull() {
-            addCriterion("school_tel is null");
+        public Criteria andDeptLeaderIdBetween(String value1, String value2) {
+            addCriterion("dept_leader_id between", value1, value2, "deptLeaderId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolTelIsNotNull() {
-            addCriterion("school_tel is not null");
+        public Criteria andDeptLeaderIdNotBetween(String value1, String value2) {
+            addCriterion("dept_leader_id not between", value1, value2, "deptLeaderId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolTelEqualTo(String value) {
-            addCriterion("school_tel =", value, "schoolTel");
+        public Criteria andDeptLeaderNameIsNull() {
+            addCriterion("dept_leader_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolTelNotEqualTo(String value) {
-            addCriterion("school_tel <>", value, "schoolTel");
+        public Criteria andDeptLeaderNameIsNotNull() {
+            addCriterion("dept_leader_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolTelGreaterThan(String value) {
-            addCriterion("school_tel >", value, "schoolTel");
+        public Criteria andDeptLeaderNameEqualTo(String value) {
+            addCriterion("dept_leader_name =", value, "deptLeaderName");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolTelGreaterThanOrEqualTo(String value) {
-            addCriterion("school_tel >=", value, "schoolTel");
+        public Criteria andDeptLeaderNameNotEqualTo(String value) {
+            addCriterion("dept_leader_name <>", value, "deptLeaderName");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolTelLessThan(String value) {
-            addCriterion("school_tel <", value, "schoolTel");
+        public Criteria andDeptLeaderNameGreaterThan(String value) {
+            addCriterion("dept_leader_name >", value, "deptLeaderName");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolTelLessThanOrEqualTo(String value) {
-            addCriterion("school_tel <=", value, "schoolTel");
+        public Criteria andDeptLeaderNameGreaterThanOrEqualTo(String value) {
+            addCriterion("dept_leader_name >=", value, "deptLeaderName");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolTelLike(String value) {
-            addCriterion("school_tel like", "%"+value+"%", "schoolTel");
+        public Criteria andDeptLeaderNameLessThan(String value) {
+            addCriterion("dept_leader_name <", value, "deptLeaderName");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolTelNotLike(String value) {
-            addCriterion("school_tel not like", "%"+value+"%", "schoolTel");
+        public Criteria andDeptLeaderNameLessThanOrEqualTo(String value) {
+            addCriterion("dept_leader_name <=", value, "deptLeaderName");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolTelIn(List<String> values) {
-            addCriterion("school_tel in", values, "schoolTel");
+        public Criteria andDeptLeaderNameLike(String value) {
+            addCriterion("dept_leader_name like", value, "deptLeaderName");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolTelNotIn(List<String> values) {
-            addCriterion("school_tel not in", values, "schoolTel");
+        public Criteria andDeptLeaderNameNotLike(String value) {
+            addCriterion("dept_leader_name not like", value, "deptLeaderName");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolTelBetween(String value1, String value2) {
-            addCriterion("school_tel between", value1, value2, "schoolTel");
+        public Criteria andDeptLeaderNameIn(List<String> values) {
+            addCriterion("dept_leader_name in", values, "deptLeaderName");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolTelNotBetween(String value1, String value2) {
-            addCriterion("school_tel not between", value1, value2, "schoolTel");
+        public Criteria andDeptLeaderNameNotIn(List<String> values) {
+            addCriterion("dept_leader_name not in", values, "deptLeaderName");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolWebUrlIsNull() {
-            addCriterion("school_web_url is null");
+        public Criteria andDeptLeaderNameBetween(String value1, String value2) {
+            addCriterion("dept_leader_name between", value1, value2, "deptLeaderName");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolWebUrlIsNotNull() {
-            addCriterion("school_web_url is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSchoolWebUrlEqualTo(String value) {
-            addCriterion("school_web_url =", value, "schoolWebUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andSchoolWebUrlNotEqualTo(String value) {
-            addCriterion("school_web_url <>", value, "schoolWebUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andSchoolWebUrlGreaterThan(String value) {
-            addCriterion("school_web_url >", value, "schoolWebUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andSchoolWebUrlGreaterThanOrEqualTo(String value) {
-            addCriterion("school_web_url >=", value, "schoolWebUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andSchoolWebUrlLessThan(String value) {
-            addCriterion("school_web_url <", value, "schoolWebUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andSchoolWebUrlLessThanOrEqualTo(String value) {
-            addCriterion("school_web_url <=", value, "schoolWebUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andSchoolWebUrlLike(String value) {
-            addCriterion("school_web_url like", "%"+value+"%", "schoolWebUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andSchoolWebUrlNotLike(String value) {
-            addCriterion("school_web_url not like", "%"+value+"%", "schoolWebUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andSchoolWebUrlIn(List<String> values) {
-            addCriterion("school_web_url in", values, "schoolWebUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andSchoolWebUrlNotIn(List<String> values) {
-            addCriterion("school_web_url not in", values, "schoolWebUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andSchoolWebUrlBetween(String value1, String value2) {
-            addCriterion("school_web_url between", value1, value2, "schoolWebUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andSchoolWebUrlNotBetween(String value1, String value2) {
-            addCriterion("school_web_url not between", value1, value2, "schoolWebUrl");
+        public Criteria andDeptLeaderNameNotBetween(String value1, String value2) {
+            addCriterion("dept_leader_name not between", value1, value2, "deptLeaderName");
             return (Criteria) this;
         }
 

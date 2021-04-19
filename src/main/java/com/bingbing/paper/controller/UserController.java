@@ -41,12 +41,12 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping(value = "/list")
-    public CommonResult list(String username,Boolean enabled,String mobile,int current,int size) {
+    public CommonResult list(String name,String username,Boolean enabled,String mobile,String motto,int current,int size) {
         Page<User> page = new Page<User>();
         page.setPageNum(current);
         page.setPageSize(size);
-        page = userService.getUserList(page,username,enabled,mobile);
-        Integer userListCount = userService.getUserListCount(username, enabled, mobile);
+        page = userService.getUserList(page,name,username,enabled,mobile,motto);
+        Integer userListCount = userService.getUserListCount(name,username, enabled, mobile,motto);
         if(page == null){
             page = new Page<User>();
         }
@@ -92,18 +92,19 @@ public class UserController {
         if (token == null) {
             return CommonResult.validateFailed("用户名或密码错误");
         }
+        User userByUsername = userService.getUserByUsername(userLoginParam.getUsername());
         Map<String, Object> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
         tokenMap.put("headToken", tokenHead + " " + token);
         tokenMap.put("user", userLoginParam.getUsername());
+        tokenMap.put("userRole", userByUsername.getRole());
         //tokenMap.put("userAll", JSONUtil.parse(userService.getUserByUsername(userLoginParam.getUsername())));
         redisTemplate.opsForValue().set("USER_PASSWORD::" + userLoginParam.getUsername(),
-                passwordEncoder.encode(userLoginParam.getPassword()), 1, TimeUnit.HOURS);
+                passwordEncoder.encode(userLoginParam.getPassword()), 1, TimeUnit.DAYS);
         redisTemplate.opsForValue().set("USER_TOKEN::" + userLoginParam.getUsername(),
-                tokenHead + " " + token, 1, TimeUnit.HOURS);
-        redisTemplate.opsForValue().set("USERALL",
-                userService.getUserByUsername(userLoginParam.getUsername()), 1, TimeUnit.HOURS);
+                tokenHead + " " + token, 1, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set("USERALL",userByUsername, 1, TimeUnit.DAYS);
         return CommonResult.success(tokenMap);
     }
 
@@ -128,6 +129,31 @@ public class UserController {
         }
         User userByUsername = userService.getUserByUsername(username);
         return CommonResult.success(userByUsername);
+    }
+
+    @ApiOperation(value = "用户修改")
+    @PostMapping(value = "/updateUser")
+    public CommonResult<Object> updateUser(@RequestBody User userParam) {
+        if (userParam == null) {
+            return CommonResult.failed("参数异常");
+        }
+        userService.updateUser(userParam);
+        return CommonResult.success(true);
+    }
+
+    @ApiOperation(value = "用户修改密码")
+    @PostMapping(value = "/updateUserPwd")
+    public CommonResult<Object> updateUserPwd(@RequestBody User userParam) {
+        if (userParam == null) {
+            return CommonResult.failed("参数异常");
+        }
+        String encodePassword = passwordEncoder.encode(userParam.getNewPassword());
+        userParam.setPassword(encodePassword);
+        userService.updateUser(userParam);
+        redisTemplate.delete("USER_TOKEN::"+userParam.getUsername());
+        redisTemplate.delete("USER_PASSWORD::"+userParam.getUsername());
+        redisTemplate.delete("USERALL");
+        return CommonResult.success(true);
     }
 
 }

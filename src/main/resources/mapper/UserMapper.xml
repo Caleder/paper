@@ -8,6 +8,9 @@
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="enabled" jdbcType="BIT" property="enabled" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="motto" jdbcType="VARCHAR" property="motto" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, password, gmt_create, enabled, mobile
+    id, username, password, gmt_create, enabled, mobile, name, motto, role
   </sql>
   <select id="selectByExample" parameterType="com.bingbing.paper.mybatis.entity.UserExample" resultMap="BaseResultMap">
     select
@@ -105,9 +108,9 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into b_user (id, username, password, gmt_create,
-    enabled, mobile)
+    enabled, mobile,name,motto,role)
     values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP},
-    #{enabled,jdbcType=BIT}, #{mobile,jdbcType=VARCHAR})
+    #{enabled,jdbcType=BIT}, #{mobile,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{motto,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.bingbing.paper.mybatis.entity.User">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
@@ -133,6 +136,15 @@
       <if test="mobile != null">
         mobile,
       </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="motto != null">
+        motto,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -152,6 +164,15 @@
       </if>
       <if test="mobile != null">
         #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="motto != null">
+        #{motto,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -182,6 +203,15 @@
       <if test="record.mobile != null">
         mobile = #{record.mobile,jdbcType=VARCHAR},
       </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.motto != null">
+        motto = #{record.motto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.role != null">
+        role = #{record.role,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -194,7 +224,10 @@
     password = #{record.password,jdbcType=VARCHAR},
     gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
     enabled = #{record.enabled,jdbcType=BIT},
-    mobile = #{record.mobile,jdbcType=VARCHAR}
+    mobile = #{record.mobile,jdbcType=VARCHAR},
+    name = #{record.name,jdbcType=VARCHAR},
+    motto = #{record.motto,jdbcType=VARCHAR},
+    role = #{record.role,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -217,6 +250,15 @@
       <if test="mobile != null">
         mobile = #{mobile,jdbcType=VARCHAR},
       </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="motto != null">
+        motto = #{motto,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -226,7 +268,10 @@
       password = #{password,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       enabled = #{enabled,jdbcType=BIT},
-      mobile = #{mobile,jdbcType=VARCHAR}
+      mobile = #{mobile,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      motto = #{motto,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
