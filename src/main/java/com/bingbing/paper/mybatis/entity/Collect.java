@@ -14,6 +14,26 @@ public class Collect implements Serializable {
 
     private Date gmtCreate;
 
+    private String formDate;
+
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFormDate() {
+        return formDate;
+    }
+
+    public void setFormDate(String formDate) {
+        this.formDate = formDate;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public String getId() {

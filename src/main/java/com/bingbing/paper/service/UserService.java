@@ -45,4 +45,6 @@ public interface UserService {
      */
     public void updateUser(User user);
 
+    public User getUser(String id);
+
 }

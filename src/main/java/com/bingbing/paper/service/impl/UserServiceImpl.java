@@ -160,4 +160,12 @@ public class UserServiceImpl implements UserService {
         userMapper.updateByPrimaryKeySelective(user);
     }
 
+    @Override
+    public User getUser(String id) {
+        if(StrUtil.isBlank(id)){
+            return null;
+        }
+        return userMapper.selectByPrimaryKey(id);
+    }
+
 }

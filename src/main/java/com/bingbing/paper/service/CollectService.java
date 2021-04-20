@@ -4,6 +4,8 @@ import com.bingbing.paper.form.CollectForm;
 import com.bingbing.paper.mybatis.entity.Collect;
 import com.github.pagehelper.Page;
 
+import java.util.List;
+
 public interface CollectService {
 
     Page<Collect> getCollectPage(Page<Collect> page, CollectForm collectForm);
@@ -17,5 +19,7 @@ public interface CollectService {
     Collect getCollect(String id);
 
     Collect getCollectBySchoolId(String schoolId);
+
+    List<Collect> getCollectList(String userId);
 
 }

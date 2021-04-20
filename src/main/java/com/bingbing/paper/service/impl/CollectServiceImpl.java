@@ -36,10 +36,10 @@ public class CollectServiceImpl implements CollectService {
 
     @Override
     public Page<Collect> getCollectPage(Page<Collect> page, CollectForm collectForm) {
-        User user = (User)redisTemplate.opsForValue().get("USERALL");
+        //User user = (User)redisTemplate.opsForValue().get("USERALL");
         CollectExample example = new CollectExample();
         CollectExample.Criteria criteria = example.createCriteria();
-        criteria.andUserIdEqualTo(user.getId()).andEnabledEqualTo(true);
+        criteria.andEnabledEqualTo(true);
         if(collectForm != null){
             SchoolRankExample schoolRankExample = new SchoolRankExample();
             SchoolRankExample.Criteria schoolRankExampleCriteria = schoolRankExample.createCriteria();
@@ -59,6 +59,20 @@ public class CollectServiceImpl implements CollectService {
                 return null;
             }
             criteria.andSchoolIdIn(list);
+            if(StrUtil.isNotBlank(collectForm.getUserId())){
+                criteria.andUserIdEqualTo(collectForm.getUserId());
+            }
+            if(StrUtil.isNotBlank(collectForm.getUserName())){
+                UserExample userExample = new UserExample();
+                userExample.createCriteria().andEnabledEqualTo(true)
+                        .andNameLike(collectForm.getUserName());
+                List<User> users = userMapper.selectByExample(userExample);
+                if(CollectionUtil.isEmpty(users)){
+                    return null;
+                }
+                List<String> collect = users.stream().map(e -> e.getId()).collect(Collectors.toList());
+                criteria.andUserIdIn(collect);
+            }
         }
         PageHelper.startPage(page.getPageNum(),page.getPageSize());
         List<Collect> collects = collectMapper.selectByExample(example);
@@ -73,7 +87,7 @@ public class CollectServiceImpl implements CollectService {
         User user = (User)redisTemplate.opsForValue().get("USERALL");
         CollectExample example = new CollectExample();
         CollectExample.Criteria criteria = example.createCriteria();
-        criteria.andUserIdEqualTo(user.getId()).andEnabledEqualTo(true);
+        criteria.andEnabledEqualTo(true);
         if(collectForm != null){
             SchoolRankExample schoolRankExample = new SchoolRankExample();
             SchoolRankExample.Criteria schoolRankExampleCriteria = schoolRankExample.createCriteria();
@@ -93,6 +107,20 @@ public class CollectServiceImpl implements CollectService {
                 return 0;
             }
             criteria.andSchoolIdIn(list);
+            if(StrUtil.isNotBlank(collectForm.getUserId())){
+                criteria.andUserIdEqualTo(collectForm.getUserId());
+            }
+            if(StrUtil.isNotBlank(collectForm.getUserName())){
+                UserExample userExample = new UserExample();
+                userExample.createCriteria().andEnabledEqualTo(true)
+                        .andNameLike(collectForm.getUserName());
+                List<User> users = userMapper.selectByExample(userExample);
+                if(CollectionUtil.isEmpty(users)){
+                    return 0;
+                }
+                List<String> collect = users.stream().map(e -> e.getId()).collect(Collectors.toList());
+                criteria.andUserIdIn(collect);
+            }
         }
         return collectMapper.countByExample(example);
     }
@@ -144,5 +172,21 @@ public class CollectServiceImpl implements CollectService {
             return collects.get(0);
         }
         return null;
+    }
+
+    @Override
+    public List<Collect> getCollectList(String userId) {
+        //User user = (User)redisTemplate.opsForValue().get("USERALL");
+        /*if(user == null){
+            return null;
+        }*/
+        CollectExample example = new CollectExample();
+        CollectExample.Criteria criteria = example.createCriteria();
+        criteria.andEnabledEqualTo(true);
+        if(StrUtil.isNotBlank(userId)){
+            criteria.andUserIdEqualTo(userId);
+        }
+        List<Collect> collects = collectMapper.selectByExample(example);
+        return collects;
     }
 }

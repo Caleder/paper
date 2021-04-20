@@ -99,6 +99,7 @@ public class UserController {
         tokenMap.put("headToken", tokenHead + " " + token);
         tokenMap.put("user", userLoginParam.getUsername());
         tokenMap.put("userRole", userByUsername.getRole());
+        tokenMap.put("userId", userByUsername.getId());
         //tokenMap.put("userAll", JSONUtil.parse(userService.getUserByUsername(userLoginParam.getUsername())));
         redisTemplate.opsForValue().set("USER_PASSWORD::" + userLoginParam.getUsername(),
                 passwordEncoder.encode(userLoginParam.getPassword()), 1, TimeUnit.DAYS);
