@@ -67,13 +67,13 @@ public class SchoolScoreController {
             Set<String> getSchoolYear = schoolYearList.stream()
                     .filter(e -> StrUtil.isNotBlank(e.getSchoolYear()))
                     .map(e -> e.getSchoolYear()).collect(Collectors.toSet());
-            List<SchoolRank> schoolRankList = schoolRankService.getSchoolRankList(null);
-            if(CollectionUtil.isNotEmpty(schoolRankList)){
-                map.put("schoolRankList",schoolRankList);
-            }
             ArrayList<String> strings = new ArrayList<>(getSchoolYear);
             Collections.sort(strings); // 升序排列
             map.put("getSchoolYear",strings);
+        }
+        List<SchoolRank> schoolRankList = schoolRankService.getSchoolRankList(null);
+        if(CollectionUtil.isNotEmpty(schoolRankList)){
+            map.put("schoolRankList",schoolRankList);
         }
         return CommonResult.success(map);
     }
