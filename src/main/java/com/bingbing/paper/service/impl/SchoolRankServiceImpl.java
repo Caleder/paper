@@ -47,6 +47,14 @@ public class SchoolRankServiceImpl implements SchoolRankService {
             if (schoolRankVo.getSchoolRank() != null) {
                 criteria.andSchoolRankEqualTo(schoolRankVo.getSchoolRank());
             }
+            //通过院校隶属查询
+            if (schoolRankVo.getAffiliation() != null) {
+                criteria.andAffiliationLike(schoolRankVo.getAffiliation());
+            }
+            //通过院校等级查询
+            if (schoolRankVo.getGrade() != null) {
+                criteria.andGradeLike(schoolRankVo.getGrade());
+            }
         }
         example.setOrderByClause("school_rank");
         List<SchoolRank> schoolRanks = schoolRankMapper.selectByExample(example);
@@ -81,6 +89,14 @@ public class SchoolRankServiceImpl implements SchoolRankService {
             //通过院校排名查询
             if (schoolRankVo.getSchoolRank() != null) {
                 criteria.andSchoolRankEqualTo(schoolRankVo.getSchoolRank());
+            }
+            //通过院校隶属查询
+            if (schoolRankVo.getAffiliation() != null) {
+                criteria.andAffiliationLike(schoolRankVo.getAffiliation());
+            }
+            //通过院校等级查询
+            if (schoolRankVo.getGrade() != null) {
+                criteria.andGradeLike(schoolRankVo.getGrade());
             }
         }
         example.setOrderByClause("school_rank");

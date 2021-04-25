@@ -8,6 +8,46 @@ public class CollectForm {
 
     private String schoolTel;
 
+    private String schoolRank;
+
+    private String cityName;
+
+    private String affiliation;
+
+    private String grade;
+
+    public String getSchoolRank() {
+        return schoolRank;
+    }
+
+    public void setSchoolRank(String schoolRank) {
+        this.schoolRank = schoolRank;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getAffiliation() {
+        return affiliation;
+    }
+
+    public void setAffiliation(String affiliation) {
+        this.affiliation = affiliation;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
     private int current;
 
     private int size;

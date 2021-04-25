@@ -1,6 +1,7 @@
 package com.bingbing.paper.controller;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
 import cn.hutool.json.JSONUtil;
 import com.bingbing.paper.common.CommonResult;
 import com.bingbing.paper.config.AuthCodeConfig;
@@ -147,6 +148,13 @@ public class UserController {
     public CommonResult<Object> updateUserPwd(@RequestBody User userParam) {
         if (userParam == null) {
             return CommonResult.failed("参数异常");
+        }
+        if (StrUtil.isNotBlank(userParam.getPassword())) {
+            User userByUsername = userService.getUserByUsername(userParam.getUsername());
+            String oldPassword2 = userByUsername.getPassword();
+            if(!passwordEncoder.matches(userParam.getPassword(), oldPassword2)){
+                return CommonResult.failed("原密码错误");
+            }
         }
         String encodePassword = passwordEncoder.encode(userParam.getNewPassword());
         userParam.setPassword(encodePassword);

@@ -14,7 +14,7 @@ public interface CollectService {
 
     void updateCollect(String id);
 
-    void addCollect(String schoolId);
+    void addCollect(String schoolId,String userId);
 
     Collect getCollect(String id);
 

@@ -53,6 +53,18 @@ public class CollectServiceImpl implements CollectService {
             if(StrUtil.isNotBlank(collectForm.getSchoolWebUrl())){
                 schoolRankExampleCriteria.andSchoolWebUrlLike(collectForm.getSchoolWebUrl());
             }
+            if(StrUtil.isNotBlank(collectForm.getAffiliation())){
+                schoolRankExampleCriteria.andAffiliationLike(collectForm.getAffiliation());
+            }
+            if(StrUtil.isNotBlank(collectForm.getGrade())){
+                schoolRankExampleCriteria.andGradeEqualTo(collectForm.getGrade());
+            }
+            if(StrUtil.isNotBlank(collectForm.getCityName())){
+                schoolRankExampleCriteria.andCityNameLike(collectForm.getCityName());
+            }
+            if(StrUtil.isNotBlank(collectForm.getSchoolRank())){
+                schoolRankExampleCriteria.andSchoolRankEqualTo(Integer.valueOf(collectForm.getSchoolRank()));
+            }
             List<SchoolRank> schoolRankList = schoolRankMapper.selectByExample(schoolRankExample);
             List<String> list = schoolRankList.stream().map(e -> e.getId()).collect(Collectors.toList());
             if(CollectionUtil.isEmpty(list)){
@@ -84,7 +96,7 @@ public class CollectServiceImpl implements CollectService {
 
     @Override
     public int getCollectCount(CollectForm collectForm) {
-        User user = (User)redisTemplate.opsForValue().get("USERALL");
+        //User user = (User)redisTemplate.opsForValue().get("USERALL");
         CollectExample example = new CollectExample();
         CollectExample.Criteria criteria = example.createCriteria();
         criteria.andEnabledEqualTo(true);
@@ -100,6 +112,18 @@ public class CollectServiceImpl implements CollectService {
             }
             if(StrUtil.isNotBlank(collectForm.getSchoolWebUrl())){
                 schoolRankExampleCriteria.andSchoolWebUrlLike(collectForm.getSchoolWebUrl());
+            }
+            if(StrUtil.isNotBlank(collectForm.getAffiliation())){
+                schoolRankExampleCriteria.andAffiliationLike(collectForm.getAffiliation());
+            }
+            if(StrUtil.isNotBlank(collectForm.getGrade())){
+                schoolRankExampleCriteria.andGradeLike(collectForm.getGrade());
+            }
+            if(StrUtil.isNotBlank(collectForm.getCityName())){
+                schoolRankExampleCriteria.andCityNameLike(collectForm.getCityName());
+            }
+            if(StrUtil.isNotBlank(collectForm.getSchoolRank())){
+                schoolRankExampleCriteria.andSchoolRankEqualTo(Integer.valueOf(collectForm.getSchoolRank()));
             }
             List<SchoolRank> schoolRankList = schoolRankMapper.selectByExample(schoolRankExample);
             List<String> list = schoolRankList.stream().map(e -> e.getId()).collect(Collectors.toList());
@@ -137,16 +161,15 @@ public class CollectServiceImpl implements CollectService {
     }
 
     @Override
-    public void addCollect(String schoolId) {
-        User user = (User)redisTemplate.opsForValue().get("USERALL");
-        if(StrUtil.isBlank(schoolId)){
+    public void addCollect(String schoolId,String userId) {
+        if(StrUtil.isBlank(schoolId) || StrUtil.isBlank(userId)){
             return;
         }
         Collect collect = new Collect();
         collect.setId(UUID.randomUUID().toString());
         collect.setEnabled(true);
         collect.setGmtCreate(new Date());
-        collect.setUserId(user.getId());
+        collect.setUserId(userId);
         collect.setSchoolId(schoolId);
         collectMapper.insert(collect);
     }

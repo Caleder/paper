@@ -50,11 +50,14 @@ public class SchoolCollectController {
                 CollectModel collectModel = new CollectModel();
                 collectModel.setSchoolName(schoolRank.getSchoolName());
                 collectModel.setSchoolContent(schoolRank.getSchoolContent());
-                collectModel.setSchoolRank(schoolRank.getSchoolRank());
                 collectModel.setSchoolTel(schoolRank.getSchoolTel());
                 collectModel.setSchoolWebUrl(schoolRank.getSchoolWebUrl());
                 BeanUtils.copyProperties(collectModel, collect);
                 collect.setUsername(user.getName());
+                collect.setAffiliation(schoolRank.getAffiliation());
+                collect.setGrade(schoolRank.getGrade());
+                collect.setSchoolRank(schoolRank.getSchoolRank());
+                collect.setCityName(schoolRank.getCityName());
             }
         }
         PageModel<Collect> pageModel = new PageModel<Collect>();
@@ -70,8 +73,8 @@ public class SchoolCollectController {
     }
 
     @PostMapping(value = "/addSchoolCollect")
-    public CommonResult addSchoolCollect(String schoolId) {
-        collectService.addCollect(schoolId);
+    public CommonResult addSchoolCollect(String schoolId,String userId) {
+        collectService.addCollect(schoolId,userId);
         return CommonResult.success(true);
     }
 

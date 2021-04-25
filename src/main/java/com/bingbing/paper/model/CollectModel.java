@@ -10,6 +10,36 @@ public class CollectModel {
 
     private String schoolContent;
 
+    private String affiliation;
+
+    private String grade;
+
+    private String cityName;
+
+    public String getAffiliation() {
+        return affiliation;
+    }
+
+    public void setAffiliation(String affiliation) {
+        this.affiliation = affiliation;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
     private Integer schoolRank;
 
     public String getSchoolName() {

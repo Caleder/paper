@@ -21,4 +21,13 @@ public class SchoolRankVo {
     @ApiModelProperty("院校院网")
     private String schoolWebUrl;
 
+    @ApiModelProperty("院校隶属")
+    private String affiliation;
+
+    @ApiModelProperty("院校等级")
+    private String grade;
+
+    @ApiModelProperty("用户id")
+    private String userId;
+
 }
